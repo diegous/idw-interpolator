@@ -76,7 +76,7 @@ if __name__ == "__main__":
     matrix = []
     for filaDeValores in nodos:
         #Creating the interpolation function and populating the output matrix value
-        ZI = invDist(xv, yv, values, Xs, Ys, power, smoothing)
+        ZI = invDist(xv, yv, filaDeValores, Xs, Ys, power, smoothing)
         Zii = ZI[:,4:11]
 
         # flatZI solo representa una fila la matriz final que se espera armar.
