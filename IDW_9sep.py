@@ -92,7 +92,7 @@ if __name__ == "__main__":
     # Armar la primera fila con las coordenadas de cada punto
     for x in range(Xs):
         for y in range(4, 11):
-            cabeceras.append("(%.2f,%.2f)" % (XI[x,y], YI[x,y]))
+            cabeceras.append("(%.2f,%.2f)" % (XI[x,y] + 1000, YI[x,y] - 1000))
 
     # Esta forma de guardar el archivo no la vamos a usar porque vamos a usar el CSV de abajo
     # np.savetxt('matrix.txt', matrixk, fmt="%.2f", delimiter = ',')
