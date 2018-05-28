@@ -2,11 +2,12 @@
 
 from math import pow
 from math import sqrt
-import numpy as np
-import pylab
-import matplotlib.pyplot as plt
 import csv
+import datetime
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import pylab
 
 costa  = np.loadtxt('CostaRdP.txt')
 cuenca = np.loadtxt('CuencaSASD.txt')
@@ -94,6 +95,9 @@ if __name__ == "__main__":
         for y in range(4, 11):
             cabeceras.append("(%.2f,%.2f)" % (XI[x,y] + 1000, YI[x,y] - 1000))
 
+    # Le agrego las columnas para la fecha y hora
+    cabeceras = cabeceras + ["año", "mes", "dia", "hora", "minuto"]
+
     # Esta forma de guardar el archivo no la vamos a usar porque vamos a usar el CSV de abajo
     # np.savetxt('matrix.txt', matrixk, fmt="%.2f", delimiter = ',')
 
@@ -103,10 +107,21 @@ if __name__ == "__main__":
         # Escribir cabecera con las coordenadas como primera fila del CSV
         csvwriter.writerow(cabeceras)
 
+        # Seteamos la fecha de inicio a 8/9/2017 19:00
+        fecha_inicial = datetime.datetime(2017, 9, 8, 19)
+        cinco_minutos = datetime.timedelta(minutes=5)
+        horario = fecha_inicial
+
         # Escribir cada una de las matrices, una por fila
         for fila in matrix:
             fila_con_dos_decimales = map("{:.2f}".format, fila)
-            csvwriter.writerow(fila_con_dos_decimales)
+
+            # Le agrego el año y mes a la fila para insertar en el CSV
+            nueva_fila = fila_con_dos_decimales + [horario.year, horario.month, horario.day, horario.hour, horario.minute]
+            csvwriter.writerow(nueva_fila)
+
+            # Aumentar el horario en 5 minutos
+            horario = horario + cinco_minutos
 
     # Dibujar los resultados
     #n = plt.normalize(0.0, 100.0)
